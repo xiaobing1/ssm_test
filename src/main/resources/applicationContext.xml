@@ -11,11 +11,17 @@
         <property name="url" value="${druid.jdbc_url}"/>
         <property name="username" value="${druid.username}"/>
         <property name="password" value="${druid.password}"/>
+        <property name="proxyFilters">
+            <list>
+                <ref bean="statFilter"/>
+            </list>
+        </property>
     </bean>
 
     <bean id="statFilter" class="com.alibaba.druid.filter.stat.StatFilter">
         <property name="mergeSql" value="true"/>
         <property name="slowSqlMillis" value="1000"/>
+        <property name="logSlowSql" value="true"/>
     </bean>
 
 
