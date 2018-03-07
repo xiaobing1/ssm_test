@@ -4,6 +4,46 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+
+  <!-- 设置Spring容器加载所有的配置文件的路径 -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:applicationContext.xml</param-value>
+  </context-param>
+
+  <!-- 启用Web监控统计功能 -->
+  <filter>
+    <filter-name>DruidWebStatFilter</filter-name>
+    <filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
+    <init-param>
+      <param-name>exclusions</param-name>
+      <param-value>*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*</param-value>
+    </init-param>
+    <!-- 下面的所有的init－param可以不用配置，使用默认值即可，如果你有处女座情结，删除即可 -->
+    <!-- 缺省sessionStatMaxCount是1000个。你可以按需要进行配置 -->
+    <init-param>
+      <param-name>sessionStatMaxCount</param-name>
+      <param-value>1000</param-value>
+    </init-param>
+    <!-- druid 0.2.7版本开始支持profile，配置profileEnable能够监控单个url调用的sql列表 -->
+    <init-param>
+      <param-name>profileEnable</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <!--
+    <init-param>
+        <param-name>principalSessionName</param-name>
+        <param-value>users.username</param-value>
+    </init-param> -->
+
+    <!-- 你可以关闭session统计功能 -->
+    <!--
+    <init-param>
+        <param-name>sessionStatEnable</param-name>
+        <param-value>true</param-value>
+    </init-param> -->
+  </filter>
+
   <filter>
     <filter-name>EncodingFilter</filter-name>
     <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -12,10 +52,25 @@
       <param-value>UTF-8</param-value>
     </init-param>
   </filter>
+
+  <filter-mapping>
+    <filter-name>DruidWebStatFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
   <filter-mapping>
     <filter-name>EncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+  <!-- 防止Spring内存溢出监听器 -->
+  <listener>
+    <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+  </listener>
   
   <servlet>
     <servlet-name>dispatcherServlet</servlet-name>
@@ -24,9 +79,42 @@
       <param-name>contextConfigLocation</param-name>
       <param-value>classpath:spring-*.xml</param-value>
     </init-param>
+    <load-on-startup>1</load-on-startup>
   </servlet>
+
+  <!-- 德鲁伊监控平台监控器 -->
+  <servlet>
+    <servlet-name>DruidStatView</servlet-name>
+    <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+    <init-param>
+      <!-- 允许清空统计数据 -->
+      <param-name>resetEnable</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <!-- 用户名 -->
+      <param-name>loginUsername</param-name>
+      <param-value>admin</param-value>
+    </init-param>
+    <init-param>
+      <!-- 密码 -->
+      <param-name>loginPassword</param-name>
+      <param-value>123456</param-value>
+    </init-param>
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>dispatcherServlet</servlet-name>
     <url-pattern>/*</url-pattern>
   </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>DruidStatView</servlet-name>
+    <url-pattern>/druid/*</url-pattern>
+  </servlet-mapping>
+
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+
 </web-app>
