@@ -17,7 +17,7 @@
         <property name="patterns">
             <list>
                 <value>com.test.service.*</value>
-                <value>com.test.dao.*</value>
+                <value>com.test.mapper.*</value>
             </list>
         </property>
     </bean>
