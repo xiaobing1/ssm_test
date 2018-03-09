@@ -1,10 +1,14 @@
 package com.test.controller;
 
+import com.test.domain.Category;
+import com.test.service.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,6 +19,9 @@ import java.util.Map;
 @RequestMapping("/hello")
 public class Hello {
 
+    @Autowired
+    CategoryService categoryService;
+
     @ResponseBody
     @RequestMapping("/say")
     public Map say(String name) {
@@ -22,5 +29,11 @@ public class Hello {
         Map map = new HashMap();
         map.put("ddd", "sss");
         return map;
+    }
+
+    @ResponseBody
+    @RequestMapping("/findall")
+    public List<Category> getCategory() {
+        return categoryService.findAll();
     }
 }
