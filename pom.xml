@@ -21,6 +21,22 @@
     <dependencies>
 
         <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>2.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.6</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>${aspectj.version}</version>
@@ -162,13 +178,13 @@
     </dependencies>
     <build>
         <finalName>ssm</finalName>
-        <resources>　　　　
-            <resource>　　　　　　　
-                <directory>src/main/java</directory>　　　　
-                <includes>　　　　　　　
-                    <include>**/*.xml</include>　　　　　　
-                </includes>　　　
-            </resource>　　
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
         </resources>
         <plugins>
             <plugin>

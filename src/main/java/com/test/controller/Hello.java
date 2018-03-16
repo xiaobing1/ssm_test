@@ -41,7 +41,8 @@ public class Hello {
     }
 
     @RequestMapping("/upload")
+    @ResponseBody
     public void upload(MultipartFile file) throws IOException {
-        file.transferTo(new File("D;//12.txt"));
+        file.transferTo(new File("D://12.txt"));
     }
 }

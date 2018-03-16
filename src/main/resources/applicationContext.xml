@@ -24,4 +24,5 @@
     <aop:config proxy-target-class="true">
         <aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druidSstatPpointcut"/>
     </aop:config>
+
 </beans>
