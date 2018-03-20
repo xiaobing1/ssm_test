@@ -25,4 +25,5 @@
         <aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druidSstatPpointcut"/>
     </aop:config>
 
+
 </beans>
