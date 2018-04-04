@@ -4,6 +4,7 @@ import com.test.domain.Category;
 import com.test.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -44,5 +45,11 @@ public class Hello {
     @ResponseBody
     public void upload(MultipartFile file) throws IOException {
         file.transferTo(new File("D://12.txt"));
+    }
+
+    @RequestMapping("/test")
+    public String test(Model model) {
+        model.addAttribute("name", "world");
+        return "test";
     }
 }
